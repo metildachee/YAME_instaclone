@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-
+  has_one_attached :user_image
   has_many :posts
   has_many :comments
   # Include default devise modules. Others available are:
