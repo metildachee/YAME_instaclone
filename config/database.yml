@@ -33,6 +33,11 @@ development:
 
   # The password associated with the postgres role (username).
   # password:
+=======
+  # username: postgres
+
+  # The password associated with the postgres role (username).
+  # password: 22121997
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -58,6 +63,7 @@ development:
 test:
   <<: *default
   database: ruby_team_test
+
   # username: postgres
   # password: 22121997
   # host: localhost
