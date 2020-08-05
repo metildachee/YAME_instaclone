@@ -1,0 +1,28 @@
+<h1>Users#show</h1>
+
+<table class="table mt-4">
+<tr>
+    <td>First Name</td>
+    <td>Last Name</td>
+    <td>Username</td>
+    <td>Bio</td>
+    <td>Phone Number</td>
+    <td>Address</td>
+    <td>City</td>
+    <td>Country</td>
+    <td>Email</td>
+    <td>actions</td>
+</tr>
+
+<td>
+    <h1><%= @user.fname %></h1>
+  
+</td>
+
+<td>
+        <%= link_to "Edit", edit_user_registration_path(@user), class: "btn btn-warning" %>
+    </td>
+</tr>
+
+
+</table>

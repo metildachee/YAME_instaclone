@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'posts/update'
   devise_for :users
   get 'users/index'
+  get 'users/show'
+
   
   resources :posts do #/posts
     resources :comments #/posts/1/comments

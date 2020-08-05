@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
 
   before_action :authenticate_user! # rails magic => need to authenticate user
-  before_action :set_user, only: [:edit, :destroy, :update, :index]
+  before_action :set_user, only: [:edit, :destroy, :update, :index, :show]
+
+  def show
+  end
+
 
   def index
    @posts = Post.all
