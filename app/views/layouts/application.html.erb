@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>RubyTeam</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<head>
+  <title>RubyTeam</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-  <body>
-  <p class="alert"><%= alert %></p>
-  <% if user_signed_in? %>
-    <%= current_user.username %>
-    <%= link_to "Logout", destroy_user_session_path, method: :delete %> 
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+  <% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
   <% end %>
-    <%= yield %>
-  </body>
+  <% if user_signed_in? %>
+  <%= current_user.username %>
+  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+  <% end %>
+  <%= yield %>
+</body>
+
 </html>

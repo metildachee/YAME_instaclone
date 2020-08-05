@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
     @post = @user.posts.build(post_params)
     if @post.save
-      flash[:succes]="your post has been created!"
+      flash[:success]="your post has been created!"
       redirect_to root_path
     else
       render :new
