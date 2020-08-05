@@ -28,17 +28,17 @@
 
   <div class="field">
     <%= f.label "Last name" %><br />
-    <%= f.text_field :lname, autofocus: true, autocomplete: "lnam" %>
+    <%= f.text_field :lname, autofocus: true, autocomplete: "lname" %>
   </div>
 
   <div class="field">
     <%= f.label "Username" %><br />
-    <%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+    <%= f.text_field :username, autofocus: true, autocomplete: "username", :required => true %>
   </div>
 
   <div class="field">
     <%= f.label "Bio" %><br />
-    <%= f.text_field :desc, autofocus: true, autocomplete: "email" %>
+    <%= f.text_field :desc, autofocus: true, autocomplete: "email", :required => true%>
   </div>
 
   <div class="field">
