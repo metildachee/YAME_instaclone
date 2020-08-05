@@ -4,6 +4,7 @@
 <% @posts.each do |post| %>
   <%= image_tag post.main_image %>
   <h1><%= post.caption %></h1>
+  <%= link_to  "show me", post_path(post) %>
 <% end %>
 <%= link_to  "Submit Post", posts_new_path %>
 
@@ -11,3 +12,4 @@
   <%= link_to @user.username, users_show_path(@user.id) %>
 </h3>
 
+<%= link_to  "submit", posts_path %>
