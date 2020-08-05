@@ -3,11 +3,15 @@
 <table class="table mt-4">
     <% if @user.id != current_user.id %>
         <% if @following_this_person && @followed_by_this_person %> 
-            You are following one another
+            <%= link_to "Unfollow", user_relationships_destroy_path(@user) %>
+            </br>
+            <small><%= @user.username %> follows you</small>
         <% elsif @following_this_person %>
             <%= link_to "Unfollow", user_relationships_destroy_path(@user) %>
         <% elsif @followed_by_this_person %>
             <%= link_to "Follow back", user_relationships_create_path(@user) %>
+            </br>
+            <small><%= @user.username %> follows you</small>
         <% else %>
             <%= link_to "Follow", user_relationships_create_path(@user) %>
         <% end %>
