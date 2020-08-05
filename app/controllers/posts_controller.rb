@@ -4,12 +4,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    puts params[:caption]
-    puts params[:main_image]
-    @post = Post.new(post_params)
-    # @post["user_id"] = current_user.id
+    @user = current_user
+
+    @post = @user.posts.build(post_params)
     if @post.save
-      redirect_to posts_index_path
+      flash[:succes]="your post has been created!"
+      redirect_to root_path
     else
       render :new
     end
@@ -23,9 +23,6 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
-    @comments = Comment.all
-    @comment = Comment.new
   end
 
   def destory
