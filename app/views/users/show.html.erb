@@ -1,12 +1,14 @@
-<h1>Users#show</h1>
+<h1>@<%= @user.username %></h1>
 
 <table class="table mt-4">
     <% if @user.id != current_user.id %>
-        please follow me
+        link to follow
+    <% else %>
+        <%= link_to "Edit", edit_user_registration_path(@user), class: "btn btn-warning" %>
     <% end %>
+
     <tr>
-        <td>First Name</td>
-        <td>Last Name</td>
+        <td>Name</td>
         <td>Username</td>
         <td>Bio</td>
         <td>Phone Number</td>
@@ -14,16 +16,29 @@
         <td>City</td>
         <td>Country</td>
         <td>Email</td>
+        <td>Followers</td>
+        <td>Following</td>
         <td>actions</td>
     </tr>
 
-    <td>
-        <h1><%= @user.fname %></h1>
-    </td>
+    <tr>
+        <td><%= @user.fname %> <%= @user.lname %></td>
+        <td><%= @user.fname %> <%= @user.lname %></td>
+        <td><%= @user.phone %></td>
+        <td>
+            <h5>Followers (<%= @followers.length %>)</h5>
+            <% @followers.each do |follower| %>
+                <%= follower.username %>
+            <% end %> 
+        </td>
+        <td>
+            <h5>Following (<%= @following.length %>)</h5>
+            <% @following.each do |following| %>
+                <%= following.username %>
+            <% end %> 
+        </td>
+    </tr>
 
-    <td>
-        <%= link_to "Edit", edit_user_registration_path(@user), class: "btn btn-warning" %>
-    </td>
     </tr>
 
 </table>

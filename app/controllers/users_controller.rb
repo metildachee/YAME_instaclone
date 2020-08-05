@@ -4,7 +4,21 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :destroy, :update, :index]
 
   def show
-    @user = User.find(params[:id])
+    @followers = Array.new
+    @following = Array.new
+    
+    @user = User.find(params[:id]) # this is the person who is currently being shown
+    followers = Relationship.where(followed_id: @user.id) # we find the Relationships where users follow current user
+    following = Relationship.where(follower_id: @user.id) # we find the Relationships of users who this current user follows
+
+    # using the id, we find the Users and push them into an array so that the front-end can render
+    followers.each do |follower|
+      @followers.push(User.find(follower.follower_id)) 
+    end 
+
+    following.each do |following|
+      @following << User.find(following.followed_id)
+    end 
   end
 
 
