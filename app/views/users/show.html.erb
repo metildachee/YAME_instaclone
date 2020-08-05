@@ -2,7 +2,15 @@
 
 <table class="table mt-4">
     <% if @user.id != current_user.id %>
-        link to follow
+        <% if @following_this_person && @followed_by_this_person %> 
+            You are following one another
+        <% elsif @following_this_person %>
+            <%= link_to "Unfollow", user_relationships_destroy_path(@user) %>
+        <% elsif @followed_by_this_person %>
+            <%= link_to "Follow back", user_relationships_create_path(@user) %>
+        <% else %>
+            <%= link_to "Follow", user_relationships_create_path(@user) %>
+        <% end %>
     <% else %>
         <%= link_to "Edit", edit_user_registration_path(@user), class: "btn btn-warning" %>
     <% end %>
@@ -28,13 +36,13 @@
         <td>
             <h5>Followers (<%= @followers.length %>)</h5>
             <% @followers.each do |follower| %>
-                <%= follower.username %>
+                <%= link_to follower.username, user_path(follower.id) %>
             <% end %> 
         </td>
         <td>
             <h5>Following (<%= @following.length %>)</h5>
             <% @following.each do |following| %>
-                <%= following.username %>
+                <%= link_to following.username, user_path(following.id) %>
             <% end %> 
         </td>
     </tr>

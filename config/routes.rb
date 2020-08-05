@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # get 'posts/index'
   # get 'posts/create'
   # get 'posts/new'
@@ -11,6 +12,9 @@ Rails.application.routes.draw do
   # get 'users/show'
 
   resources :users do 
+    get 'relationships/create'
+    get 'relationships/destroy'
+
     resources :posts
   end 
   
