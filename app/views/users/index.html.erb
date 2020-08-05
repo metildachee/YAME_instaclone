@@ -1,2 +1,10 @@
 <h1>Users#index</h1>
 <p>Find me in app/views/users/index.html.erb</p>
+
+<% @posts.each do |post| %>
+  <%= image_tag post.main_image %>
+  <h1><%= post.caption %></h1>
+<% end %>
+
+
+<%= link_to  "submit", posts_new_path %>
