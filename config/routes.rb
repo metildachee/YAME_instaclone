@@ -3,18 +3,20 @@ Rails.application.routes.draw do
   get 'users/index'
 
   resources :users do #/users
-    resources :posts #/users/1/posts
+    resources :posts do #/posts
+      resources :comments #/posts/1/comments
+      end
   end
 
-  resources :posts do #/posts
-    resources :comments #/posts/1/comments
-  end
+  # resources :posts do #/posts
+  #   resources :comments #/posts/1/comments
+  # end
 
-  resources :users do
-    resources :comments
-  end
+  # resources :users do
+  #   resources :comments
+  # end
 
-  resources :posts
+  # resources :posts
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'users#index'
