@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post["user_id"] = current_user.id
+    # @post["user_id"] = current_user.id
     if @post.save
       redirect_to posts_index_path
     else
@@ -21,6 +21,9 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
+    @comments = Comment.all
+    @comment = Comment.new
   end
 
   def destory
