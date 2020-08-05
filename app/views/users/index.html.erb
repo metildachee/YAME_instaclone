@@ -6,7 +6,7 @@
   <h1><%= post.caption %></h1>
   <%= link_to  "show me", post_path(post) %>
 <% end %>
-<%= link_to  "Submit Post", posts_new_path %>
+<%= link_to  "Submit Post", posts_path %>
 
 <h3>
   <%= link_to @user.username, users_show_path(@user.id) %>
