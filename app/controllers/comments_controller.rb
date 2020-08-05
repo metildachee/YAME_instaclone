@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     puts @comment
     if @comment.save
       puts "hello"
-      redirect_to post_path()
+      redirect_to post_path(@post)
     else
       render :new
     end

@@ -3,12 +3,13 @@
 
 
 <%= image_tag @post.main_image %>
-<h1><%= @post.caption %></h1>
+<p>Caption: <strong><%= @post.caption %></strong></p>
 
-<h3>Comments</h3>
-<% @comments.each do |f| %>
-    <%= f.description %>
-<% end %>
+<div class="col-md-7">
+    <h4>Comments</h4>
+    <% @comments.each do |f| %>
+        <p><%= f.description %></p>
+    <% end %>
+</div>
 
-<h3>Post a Comment</h3>
 <%= render 'comments/form' %>
