@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :destroy, :update, :index]
 
   def index
-  #  @post = Post.all
+   @posts = Post.all
   end
 
 def new
