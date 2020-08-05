@@ -1,6 +1,21 @@
 Rails.application.routes.draw do
   devise_for :users
   get 'users/index'
+
+  resources :users do #/users
+    resources :posts #/users/1/posts
+  end
+
+  resources :posts do #/posts
+    resources :comments #/posts/1/comments
+  end
+
+  resources :users do
+    resources :comments
+  end
+
+  resources :posts
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'users#index'
 end 
