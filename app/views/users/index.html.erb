@@ -1,13 +1,15 @@
 <h1>Users#index</h1>
 <p>Find me in app/views/users/index.html.erb</p>
 
-<% @posts.each do |post| %>
-  <%= image_tag post.main_image %>
-  <h1><%= post.caption %></h1>
-<% end %>
-<%= link_to  "Submit Post", posts_new_path %>
-
+<td>
+    <%= image_tag @user.user_image %>
+    <h1><%= @user.fname %></h1>
+  
+</td>
 <h3>
   <%= link_to @user.username, users_show_path(@user.id) %>
 </h3>
+
+
+
 
