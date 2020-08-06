@@ -33,12 +33,29 @@ class UsersController < ApplicationController
       @following << User.find(following.followed_id)
     end 
   end
+  # end show method
 
 
-  def index
-   @posts = Post.all
+def index
+  # @posts = User.find(5).posts # this works
 
-  end
+  # testing the following feature out - should see following feed
+
+  # initialise
+  @posts = Array.new
+  following_people = Array.new 
+
+  # get all the relationships where current user is a follower
+  connections = Relationship.where(follower_id: current_user.id)
+
+  # we get the current user's posts
+  @posts = User.find(current_user.id).posts
+  
+  # using the relationship, we get all the people who are currently being followed
+  connections.each do |following|
+    @posts << User.find(following.followed_id).posts
+  end 
+end
 
 def new
     @user = User.new
