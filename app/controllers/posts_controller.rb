@@ -27,6 +27,8 @@ def create
   end
 
   def edit
+    @post = Post.find(params[:id])
+    @comments = @post.comments
   end
 
   def show
@@ -36,10 +38,23 @@ def create
     @comment = Comment.new
   end
 
-  def destory
+  def destroy
+    @post = Post.find(params[:id])
+
+      if @post.destroy
+        redirect_to users_path
+      else
+        render :index
+      end
   end
 
   def update
+    @post = Post.find(params[:id])
+    if @post.update(post)
+      redirect_to users_path
+    else
+      render :edit
+    end
   end
 
   private

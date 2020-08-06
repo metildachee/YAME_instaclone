@@ -26,6 +26,19 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    if @comment.destroy
+      redirect_to posts_path
+    else
+      render :index
+    end
+  end
+
+  def update
+    if @comment.update(comment_params)
+      redirect_to comments_path
+    else
+      render :edit
+    end
   end
 
   private
