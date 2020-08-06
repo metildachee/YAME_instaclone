@@ -1,0 +1,15 @@
+<h1>Posts#show</h1>
+<p>Find me in app/views/posts/show.html.erb</p>
+
+
+<%= image_tag @post.main_image %>
+<p>Caption: <strong><%= @post.caption %></strong></p>
+
+<div class="col-md-7">
+    <h4>Comments</h4>
+    <% @comments.each do |f| %>
+        <p><%= f.user.username %>: <%= f.description %></p>
+    <% end %>
+</div>
+
+<%= render 'comments/form' %>
