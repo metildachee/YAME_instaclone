@@ -8,7 +8,8 @@
 <div class="col-md-7">
     <h4>Comments</h4>
     <% @comments.each do |f| %>
-        <p><%= f.description %></p>
+
+        <p><%= f.user.username %>: <%= f.description %></p>
     <% end %>
 </div>
 

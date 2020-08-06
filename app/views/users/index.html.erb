@@ -1,15 +1,13 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<h1>Your feed</h1>
 
 <% @posts.each do |post| %>
-  <%= image_tag post.main_image %>
+  <% if post.main_image.attachment != nil %>
+    <%= image_tag post.main_image.variant(resize_to_limit: [250, nil]) %>
+  <% end %>
+
   <h1><%= post.caption %></h1>
-  <%= link_to  "show me", post_path(post) %>
+
+  <p><%= link_to post.user.username, user_path(post.user) %></p>
+  <p><%= link_to "Show more", user_post_path(post.user, post) %></p>
 <% end %>
-<%#= link_to  "Submit Post", posts_new_path %>
-
-<h3>
-  <%= link_to @user.username, users_show_path(@user.id) %>
-</h3>
-
-<%= link_to  "submit", posts_path %>
+<%= link_to  "Submit Post", new_user_post_path(@user) %>

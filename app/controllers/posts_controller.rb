@@ -1,15 +1,21 @@
 class PostsController < ApplicationController
-  def index
+def index
     @posts = Post.all
-  end
+    puts @posts
+end
 
-  def create
-    puts params[:caption]
-    puts params[:main_image]
-    @post = Post.new(post_params)
-    # @post["user_id"] = current_user.id
+def create
+    @user = current_user
+
+    @post = @user.posts.build(post_params)
     if @post.save
-      redirect_to posts_index_path
+      flash[:success]="your post has been created!"
+      redirect_to users_path
+    # @post = Post.new(post_params)
+    # @post["user_id"] = current_user.id
+
+    # if @post.save
+      # redirect_to posts_path
     else
       render :new
     end
@@ -24,7 +30,12 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+<<<<<<< HEAD
     @comments = Comment.all
+=======
+    @comments = @post.comments
+
+>>>>>>> d8568955d278a1393a24326544924fa35f2ee1d5
     @comment = Comment.new
   end
 
@@ -40,3 +51,4 @@ class PostsController < ApplicationController
     params.require(:post).permit(:caption, :main_image, :user_id)
   end
 end
+
