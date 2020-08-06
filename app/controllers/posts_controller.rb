@@ -1,13 +1,16 @@
 class PostsController < ApplicationController
   def index
     @posts = Post.all
+    puts @posts
   end
 
   def create
-    @post = Post.new(post_params)
-    @post["user_id"] = current_user.id
+    @user = current_user
+
+    @post = @user.posts.build(post_params)
     if @post.save
-      redirect_to posts_index_path
+      flash[:success]="your post has been created!"
+      redirect_to users_path
     else
       render :new
     end
@@ -21,10 +24,6 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
-    # we need to change this later for just that one specify comment
-    @comments = Comment.all 
-    @comment = Comment.new
   end
 
   def destory
@@ -39,3 +38,4 @@ class PostsController < ApplicationController
     params.require(:post).permit(:caption, :main_image, :user_id)
   end
 end
+

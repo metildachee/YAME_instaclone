@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def show
 
+    @posts = Post.all
     # initialise
     @followers = Array.new
     @following = Array.new

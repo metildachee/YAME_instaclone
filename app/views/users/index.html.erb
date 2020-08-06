@@ -1,14 +1,4 @@
 <h1>Your feed</h1>
-<td>
-  <% if @user.user_image.attachment != nil %>
-  <%= image_tag @user.user_image.variant(resize_to_limit: [250, nil]) %>
-  <h1><%= @user.fname %></h1>
-  <% end %>
-</td>
-<%= link_to @user.username, users_show_path(@user.id) %>
-
-<%= link_to "create post", new_post_path(@posts) %>
-
 
 <% @posts.each do |post| %>
 <% if post.main_image.attachment != nil %>
@@ -19,5 +9,4 @@
 
   <h1><%= post.caption %></h1>
 <% end %>
-<h3>
-</h3>
+
