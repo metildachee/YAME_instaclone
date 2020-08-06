@@ -34,18 +34,24 @@ def create
   def show
     @post = Post.find(params[:id])
     @comments = @post.comments
-
     @comment = Comment.new
   end
 
   def destroy
-    @post = Post.find(params[:id])
+    # we get the current post
+    post = Post.find(params[:id])
 
-      if @post.destroy
-        redirect_to users_path
-      else
-        render :index
-      end
+    # delete all the comments with reference to current post
+    Comment.where(post_id: post.id).each do |comment|
+      Comment.destroy(comment.id).destroy 
+    end 
+
+    # we delete the current post
+    if Post.destroy(post.id)
+      redirect_to users_path
+    else
+      render :index
+    end
   end
 
   def update
