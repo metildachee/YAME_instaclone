@@ -5,6 +5,8 @@ class UsersController < ApplicationController
 
 def show
 
+    # We show the post specify to the current user, using the params form the URL
+    @posts = User.find(params[:id]).posts
     # initialise
     @followers = Array.new
     @following = Array.new
