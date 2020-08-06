@@ -1,4 +1,3 @@
-
 <h1>Your feed</h1>
 
 <% @posts.each do |post| %>
@@ -8,5 +7,5 @@
   
   <p><%= link_to "Show more", user_post_path(post.user, post) %></p>
 <% end %>
-<%= link_to  "Submit Post", new_user_post_path(@user) %>
 
+<%= link_to  "Submit Post", new_user_post_path(@user) %>

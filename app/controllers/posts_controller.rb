@@ -2,7 +2,7 @@ class PostsController < ApplicationController
 
 def index # all around the world
     @posts = Post.all
-    puts @posts
+    @relationships = Relationship.all
 end
 
 def create
