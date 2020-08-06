@@ -1,15 +1,15 @@
-<h1>Your feed</h1>
+<div class="container">
+  <h1>Your feed</h1>
 
-<% @posts.each do |post| %>
+  <% @posts.each do |post| %>
+    <%= image_tag post.main_image, width: "500px", height: "500px" %>
+    <h1><%= post.caption %></h1>
 
-  <%= image_tag post.main_image %>
-  <h1><%= post.caption %></h1>
-
-  <p><%= link_to post.user.username, user_path(post.user) %></p>
-  
-  <p><%= link_to "Show more", user_post_path(post.user, post) %></p>
-          <p><%= link_to "Edit", edit_user_post_path(post.user, post), class: "btn btn-warning" %></p>
-        <p><%= link_to "Delete", user_post_path(post.user, post), method: "delete", data:{ confirm: "Are you sure?"}, class: "btn btn-danger" %></p>
-<% end %>
-
-<%= link_to  "Submit Post", new_user_post_path(@user) %>
+    <p><%= link_to post.user.username, user_path(post.user) %></p>
+    
+    <p><%= link_to "Show more", user_post_path(post.user, post) %></p>
+            <p><%= link_to "Edit", edit_user_post_path(post.user, post), class: "btn btn-warning" %></p>
+          <p><%= link_to "Delete", user_post_path(post.user, post), method: "delete", data:{ confirm: "Are you sure?"}, class: "btn btn-danger" %></p>
+  <% end %>
+  <%= link_to  "Submit Post", new_user_post_path(@user) %>
+</div>
