@@ -33,6 +33,14 @@ class CommentsController < ApplicationController
     end
   end
 
+  def update
+    if @comment.update(comment_params)
+      redirect_to comments_path
+    else
+      render :edit
+    end
+  end
+
   private
 
   def set_comment

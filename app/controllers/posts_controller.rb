@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-def index
+
+def index # all around the world
     @posts = Post.all
     puts @posts
 end
@@ -26,23 +27,34 @@ def create
   end
 
   def edit
+    @post = Post.find(params[:id])
+    @comments = @post.comments
   end
 
   def show
     @post = Post.find(params[:id])
-<<<<<<< HEAD
-    @comments = Comment.all
-=======
     @comments = @post.comments
 
->>>>>>> d8568955d278a1393a24326544924fa35f2ee1d5
     @comment = Comment.new
   end
 
-  def destory
+  def destroy
+    @post = Post.find(params[:id])
+
+      if @post.destroy
+        redirect_to users_path
+      else
+        render :index
+      end
   end
 
   def update
+    @post = Post.find(params[:id])
+    if @post.update(post)
+      redirect_to users_path
+    else
+      render :edit
+    end
   end
 
   private

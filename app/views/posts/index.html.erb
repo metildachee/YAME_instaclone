@@ -1,2 +1,10 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<h1>Around the world!</h1>
+
+<% @posts.each do |post| %>
+    <div>
+        <%= image_tag post.main_image %>
+        <%= post.caption %>
+        <%= link_to post.user.username, user_path(post.user) %>
+    </div>
+<% end %>
+
