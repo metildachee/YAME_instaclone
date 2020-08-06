@@ -15,3 +15,21 @@
  */
 
 @import "bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script&family=Poppins:wght@400;500&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+.navbar-brand {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+}
+
+h1 {
+    font-family: 'Oleo Script', cursive;
+    color: rgb(61, 61, 61);
+    font-size: 45px;
+}
