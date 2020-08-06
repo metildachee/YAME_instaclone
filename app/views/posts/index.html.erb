@@ -15,6 +15,18 @@
             </div>
         </div>
 
-    </div>
+<% @posts.each do |post| %>
+    <div>
+        
+        <%= image_tag post.main_image %>
+        <%= post.caption %>
+        <%= link_to post.user.username, user_path(post.user) %>
+        <%= link_to "Show more", user_post_path(post.user, post) %>
 
-</div>
+        <% if @relationships.find_by(followed_id: post.user.id, follower_id: current_user.id) == nil && current_user.id != post.user.id %>
+            <%= link_to "Follow", user_relationships_create_path(post.user) %>
+        <% elsif current_user.id != post.user.id %>
+            <%= link_to "Unfollow", user_relationships_destroy_path(post.user) %>
+        <% end %>
+    </div>
+<% end %>

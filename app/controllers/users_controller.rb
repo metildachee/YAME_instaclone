@@ -48,25 +48,14 @@ def index # shows feed: user's post + following's posts
 
     # we get the current user's posts
     @posts = User.find(current_user.id).posts
-    puts "current user: " + current_user.id.to_s
     
     # using the relationship, we get all the people who are currently being followed
     connections.each do |following|
       # we get all the posts of the person being followed
-      new_post =  Post.where(user_id: following.followed_id)
-      new_post.each do |post|
-        puts following.followed_id.to_s
-        puts post.caption 
-        puts post.user.id
+      new_post =  Post.where(user_id: following.followed_id)    
+      # combine with the current user's posts
+      @posts = new_post == nil ? @posts : new_post + @posts
     end 
-    # combine with the current user's posts
-    @posts = new_post == nil ? @posts : new_post + @posts
-
-    @posts.each do |post|
-      puts post.caption
-      puts post.user.id
-    end 
-  end 
 end
 
 def new
