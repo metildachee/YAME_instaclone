@@ -21,6 +21,10 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
+    # we need to change this later for just that one specify comment
+    @comments = Comment.all 
+    @comment = Comment.new
   end
 
   def destory
