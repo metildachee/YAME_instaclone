@@ -3,56 +3,40 @@ class UsersController < ApplicationController
   before_action :authenticate_user! # rails magic => need to authenticate user
   before_action :set_user, only: [:edit, :destroy, :update, :index]
 
-  def show
+def show
 
-    # initialise
-    @followers = Array.new
-    @following = Array.new
-    @following_this_person = false
-    @followed_by_this_person = false
-
-
-    @user = User.find(params[:id]) # this is the person who is currently being shown
-    followers = Relationship.where(followed_id: @user.id) # we find the Relationships of users follow current user
-    following = Relationship.where(follower_id: @user.id) # we find the Relationships of users who this current user follows
-
-    # using the id, we find the Users and push them into an array so that the front-end can render
-    followers.each do |follower|
-      if (follower.follower_id == current_user.id) # this particular user contains current user's ID => current user follows this person
-        @following_this_person = true
-      end 
-
-      @followers.push(User.find(follower.follower_id)) 
-    end 
-
-    following.each do |following|
-      if (following.followed_id == current_user.id) 
-        @followed_by_this_person = true;
-      end 
-
-      @following << User.find(following.followed_id)
-    end 
-  end
-  # end show method
+end
+# end show method
 
 
 def index # shows feed: user's post + following's posts
-  # initialise
-  @posts = Array.new
-  following_people = Array.new 
+   # initialise
+    @posts = Array.new
+    following_people = Array.new 
 
-  # get all the relationships where current user is a follower
-  connections = Relationship.where(follower_id: current_user.id)
+    # get all the relationships where current user is a follower
+    connections = Relationship.where(follower_id: current_user.id)
 
-  # we get the current user's posts
-  @posts = User.find(current_user.id).posts
-  
-  # using the relationship, we get all the people who are currently being followed
-  connections.each do |following|
-    # we get all the posts of the person being followed
-    new_post =  Post.where(user_id: following.followed_id)
+    # we get the current user's posts
+    @posts = User.find(current_user.id).posts
+    puts "current user: " + current_user.id.to_s
+    
+    # using the relationship, we get all the people who are currently being followed
+    connections.each do |following|
+      # we get all the posts of the person being followed
+      new_post =  Post.where(user_id: following.followed_id)
+      new_post.each do |post|
+        puts following.followed_id.to_s
+        puts post.caption 
+        puts post.user.id
+    end 
     # combine with the current user's posts
     @posts = new_post == nil ? @posts : new_post + @posts
+
+    @posts.each do |post|
+      puts post.caption
+      puts post.user.id
+    end 
   end 
 end
 
