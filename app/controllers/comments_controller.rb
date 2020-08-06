@@ -10,10 +10,8 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment["post_id"] = params[:post_id]
     @comment["user_id"] = current_user.id
-    puts @comment.description
-    puts @comment
+
     if @comment.save
-      puts "hello"
       redirect_to post_path(@post)
     else
       render :new
