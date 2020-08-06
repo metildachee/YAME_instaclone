@@ -4,12 +4,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    puts params[:caption]
-    puts params[:main_image]
     @post = Post.new(post_params)
-    # @post["user_id"] = current_user.id
+    # @post['user_id'] = current_user.id
+
     if @post.save
-      redirect_to posts_index_path
+      redirect_to posts_path
     else
       render :new
     end
@@ -24,7 +23,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @comments = Comment.all
+    @comments = @post.comments
     @comment = Comment.new
   end
 
