@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-def index
+
+def index # all around the world
     @posts = Post.all
     puts @posts
 end

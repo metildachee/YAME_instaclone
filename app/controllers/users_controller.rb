@@ -3,9 +3,10 @@ class UsersController < ApplicationController
   before_action :authenticate_user! # rails magic => need to authenticate user
   before_action :set_user, only: [:edit, :destroy, :update, :index]
 
-  def show
+def show
 
-    @posts = Post.all
+    # We show the post specify to the current user, using the params form the URL
+    @posts = User.find(params[:id]).posts
     # initialise
     @followers = Array.new
     @following = Array.new
@@ -33,28 +34,38 @@ class UsersController < ApplicationController
 
       @following << User.find(following.followed_id)
     end 
-  end
-  # end show method
+end
+# end show method
 
 
-def index
-  # @posts = User.find(5).posts # this works
+def index # shows feed: user's post + following's posts
+   # initialise
+    @posts = Array.new
+    following_people = Array.new 
 
-  # testing the following feature out - should see following feed
+    # get all the relationships where current user is a follower
+    connections = Relationship.where(follower_id: current_user.id)
 
-  # initialise
-  @posts = Array.new
-  following_people = Array.new 
+    # we get the current user's posts
+    @posts = User.find(current_user.id).posts
+    puts "current user: " + current_user.id.to_s
+    
+    # using the relationship, we get all the people who are currently being followed
+    connections.each do |following|
+      # we get all the posts of the person being followed
+      new_post =  Post.where(user_id: following.followed_id)
+      new_post.each do |post|
+        puts following.followed_id.to_s
+        puts post.caption 
+        puts post.user.id
+    end 
+    # combine with the current user's posts
+    @posts = new_post == nil ? @posts : new_post + @posts
 
-  # get all the relationships where current user is a follower
-  connections = Relationship.where(follower_id: current_user.id)
-
-  # we get the current user's posts
-  @posts = User.find(current_user.id).posts
-  
-  # using the relationship, we get all the people who are currently being followed
-  connections.each do |following|
-    @posts << User.find(following.followed_id).posts
+    @posts.each do |post|
+      puts post.caption
+      puts post.user.id
+    end 
   end 
 end
 
