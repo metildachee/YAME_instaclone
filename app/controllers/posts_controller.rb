@@ -5,8 +5,9 @@ def index # all around the world
     @relationships = Relationship.all
 end
 
-def create
+def create # this creates a new post
     @user = current_user
+
 
     @post = @user.posts.build(post_params)
     if @post.save
@@ -20,7 +21,7 @@ def create
     else
       render :new
     end
-  end
+end 
 
   def new
     @post = Post.new
