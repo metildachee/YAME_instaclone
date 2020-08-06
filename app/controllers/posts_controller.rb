@@ -4,10 +4,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    puts params[:caption]
-    puts params[:main_image]
     @post = Post.new(post_params)
-    # @post["user_id"] = current_user.id
+    @post["user_id"] = current_user.id
     if @post.save
       redirect_to posts_index_path
     else
@@ -24,7 +22,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @comments = Comment.all
+    # we need to change this later for just that one specify comment
+    @comments = Comment.all 
     @comment = Comment.new
   end
 

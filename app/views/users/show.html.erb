@@ -1,29 +1,56 @@
-<h1>Users#show</h1>
+<h1>@<%= @user.username %></h1>
 
 <table class="table mt-4">
-<tr>
-    <td>First Name</td>
-    <td>Last Name</td>
-    <td>Username</td>
-    <td>Bio</td>
-    <td>Phone Number</td>
-    <td>Address</td>
-    <td>City</td>
-    <td>Country</td>
-    <td>Email</td>
-    <td>actions</td>
-</tr>
-
-<td>
-    <%= image_tag @user.user_image %>
-    <h1><%= @user.fname %></h1>
-  
-</td>
-
-<td>
+    <% if @user.id != current_user.id %>
+        <% if @following_this_person && @followed_by_this_person %> 
+            <%= link_to "Unfollow", user_relationships_destroy_path(@user) %>
+            </br>
+            <small><%= @user.username %> follows you</small>
+        <% elsif @following_this_person %>
+            <%= link_to "Unfollow", user_relationships_destroy_path(@user) %>
+        <% elsif @followed_by_this_person %>
+            <%= link_to "Follow back", user_relationships_create_path(@user) %>
+            </br>
+            <small><%= @user.username %> follows you</small>
+        <% else %>
+            <%= link_to "Follow", user_relationships_create_path(@user) %>
+        <% end %>
+    <% else %>
         <%= link_to "Edit", edit_user_registration_path(@user), class: "btn btn-warning" %>
-    </td>
-</tr>
+    <% end %>
 
+    <tr>
+        <td>Name</td>
+        <td>Username</td>
+        <td>Bio</td>
+        <td>Phone Number</td>
+        <td>Address</td>
+        <td>City</td>
+        <td>Country</td>
+        <td>Email</td>
+        <td>Followers</td>
+        <td>Following</td>
+        <td>actions</td>
+    </tr>
+
+    <tr>
+        <td><%= @user.fname %> <%= @user.lname %></td>
+        <td><%= @user.fname %> <%= @user.lname %></td>
+        <td><%= @user.phone %></td>
+        <td>
+            <h5>Followers (<%= @followers.length %>)</h5>
+            <% @followers.each do |follower| %>
+                <%= link_to follower.username, user_path(follower.id) %>
+            <% end %> 
+        </td>
+        <td>
+            <h5>Following (<%= @following.length %>)</h5>
+            <% @following.each do |following| %>
+                <%= link_to following.username, user_path(following.id) %>
+            <% end %> 
+        </td>
+    </tr>
+
+    </tr>
 
 </table>
