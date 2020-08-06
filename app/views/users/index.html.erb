@@ -16,8 +16,11 @@
     <p><%= link_to post.user.username, user_path(post.user) %></p>
     
     <p><%= link_to "Show more", user_post_path(post.user, post) %></p>
-            <p><%= link_to "Edit", edit_user_post_path(post.user, post), class: "btn btn-warning" %></p>
+      <% if post.user.id == current_user.id %>
+          <p><%= link_to "Edit", edit_user_post_path(post.user, post), class: "btn btn-warning" %></p>
           <p><%= link_to "Delete", user_post_path(post.user, post), method: "delete", data:{ confirm: "Are you sure?"}, class: "btn btn-danger" %></p>
+      <% end %>
   <% end %>
+
   <%= link_to  "Submit Post", new_user_post_path(@user) %>
 </div>
