@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :posts
   end 
   
-
+  resources :comments
   
   resources :posts do #/posts
     resources :comments #/posts/1/comments
