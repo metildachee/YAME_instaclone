@@ -7,17 +7,17 @@ end
 
 def create # this creates a new post
     @user = current_user
-
-
     @post = @user.posts.build(post_params)
+    # if @post.hashtags.build(name: extract_name_hash_tags).save
     if @post.save
-      flash[:success]="your post has been created!"
+      # hashtag = Array.new
+      # extract_name_hash_tags.each do |tag|
+      #   hashtag << Hashtag.create(name: extract_name_hash_tags[0])
+      # end 
+      hashtag = Hashtag.create(name: extract_name_hash_tags[0])
+      Posthashtag.create(post: @post)
+      flash[:success]= "your post has been created!"
       redirect_to users_path
-    # @post = Post.new(post_params)
-    # @post["user_id"] = current_user.id
-
-    # if @post.save
-      # redirect_to posts_path
     else
       render :new
     end
@@ -41,7 +41,6 @@ end
 
   def destroy
     @post = Post.find(params[:id])
-
       if @post.destroy
         redirect_to users_path
       else
@@ -51,7 +50,7 @@ end
 
   def update
     @post = Post.find(params[:id])
-    if @post.update(post)
+    if @post.update(post_params)
       redirect_to users_path
     else
       render :edit
@@ -63,5 +62,10 @@ end
   def post_params
     params.require(:post).permit(:caption, :main_image, :user_id)
   end
+
+  def extract_name_hash_tags
+    @post.caption.to_s.scan(/#\w+/).map{|name| name.gsub("#", "")}
+  end
+
 end
 
