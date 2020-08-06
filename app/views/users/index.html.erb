@@ -1,26 +1,37 @@
 <div class="container">
-  <h1>Your feed</h1>
+  <div class="row">
+    <div class="col-md-12 text-center my-4">
+      <h1>Your feed</h1>
+      <%= link_to  "Submit Post", new_user_post_path(@user), class: "btn btn-info my-3" %>
+    </div>
 
-  <% @posts.each do |post| %>
-    <%= image_tag post.main_image, width: "500px", height: "500px" %>
-    <h1>
-      <% post.caption.to_s.split(' ').each do |word| %>
-          <% if word.start_with?('#') %>
-            <%= link_to word, finds_index_path(query: word) %>
-          <%else %>
-            <%= word %>
-          <%end %>
-      <% end %>
-    </h1>
+    <div class="col">
+      <div class="row">
+        <% @posts.each do |post| %>
+          <div class="mx-auto mb-4">
+            <%= image_tag post.main_image, width: "500px", height: "500px" %>
+            <h2 class="py-2">
+              <% post.caption.to_s.split(' ').each do |word| %>
+                  <% if word.start_with?('#') %>
+                    <%= link_to word, finds_index_path(query: word) %>
+                  <%else %>
+                    <%= word %>
+                  <%end %>
+              <% end %>
+            </h2>
 
-    <p><%= link_to post.user.username, user_path(post.user) %></p>
-    
-    <p><%= link_to "Show more", user_post_path(post.user, post) %></p>
-      <% if post.user.id == current_user.id %>
-          <p><%= link_to "Edit", edit_user_post_path(post.user, post), class: "btn btn-warning" %></p>
-          <p><%= link_to "Delete", user_post_path(post.user, post), method: "delete", data:{ confirm: "Are you sure?"}, class: "btn btn-danger" %></p>
-      <% end %>
-  <% end %>
+            <p>
+              @<%= link_to post.user.username, user_path(post.user) %>
+              <%= link_to "Show more..", user_post_path(post.user, post) %>
+            </p>
 
-  <%= link_to  "Submit Post", new_user_post_path(@user) %>
+            <% if post.user.id == current_user.id %>
+                <p><%= link_to "Edit", edit_user_post_path(post.user, post), class: "btn btn-warning" %>
+                <%= link_to "Delete", user_post_path(post.user, post), method: "delete", data:{ confirm: "Are you sure?"}, class: "btn btn-danger" %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
