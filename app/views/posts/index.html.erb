@@ -1,4 +1,19 @@
-<h1>Around the world!</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center mt-4">
+            <h1>Explore</h1>
+        </div>
+
+        <div class="col-md-12">
+            <div class="row">
+                <% @posts.each do |post| %>
+                    <div class="mx-auto mt-4">
+                        <%= image_tag post.main_image , class: "img-thumbnail img-responsive", width: "250px", height: "250px" %>
+                        <p><%= link_to post.user.username, user_path(post.user) %></p>
+                    </div>
+                <% end %>
+            </div>
+        </div>
 
 <% @posts.each do |post| %>
     <div>
