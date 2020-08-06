@@ -3,7 +3,15 @@
 
   <% @posts.each do |post| %>
     <%= image_tag post.main_image, width: "500px", height: "500px" %>
-    <h1><%= post.caption %></h1>
+    <h1>
+      <% post.caption.to_s.split(' ').each do |word| %>
+          <% if word.start_with?('#') %>
+            <%= link_to word, finds_index_path(query: word) %>
+          <%else %>
+            <%= word %>
+          <%end %>
+      <% end %>
+    </h1>
 
     <p><%= link_to post.user.username, user_path(post.user) %></p>
     

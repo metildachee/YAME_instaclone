@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'finds/index'
   # get 'posts/index'
   # get 'posts/create'
   # get 'posts/new'
