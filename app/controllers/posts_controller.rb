@@ -41,11 +41,15 @@ def create
   def destroy
     @post = Post.find(params[:id])
 
-      if @post.destroy
-        redirect_to users_path
-      else
-        render :index
-      end
+    Comment.where(post_id: post.id).each do |comment|
+      Comment.destroy(comment.id).destroy 
+    end
+
+    if @post.destroy
+      redirect_to users_path
+    else
+      render :index
+    end
   end
 
   def update

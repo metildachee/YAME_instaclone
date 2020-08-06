@@ -9,7 +9,12 @@
     <h4>Comments</h4>
     <% @comments.each do |f| %>
 
-        <p><%= f.user.username %>: <%= f.description %></p>
+        <p>
+        <%= f.user.username %>: <%= f.description %> 
+        <% if f.user.id == current_user.id %>
+            <span><%= link_to "x", user_post_path(@post.user, @post), method: "delete", data:{ confirm: "Are you sure you want to delete this?"}, class: "btn btn-light btn-sm" %></span>
+        <% end %>
+        </p>
 
     <% end %>
 </div>
