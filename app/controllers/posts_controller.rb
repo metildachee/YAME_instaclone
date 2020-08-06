@@ -55,8 +55,7 @@ def create
   end
 
   def update
-    @post = Post.find(params[:id])
-    if @post.update(post)
+    if Post.find(params[:id]).update(post_params)
       redirect_to users_path
     else
       render :edit
