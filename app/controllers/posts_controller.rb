@@ -6,8 +6,9 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post["user_id"] = current_user.id
+
     if @post.save
-      redirect_to posts_index_path
+      redirect_to posts_path
     else
       render :new
     end
@@ -22,8 +23,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    # we need to change this later for just that one specify comment
-    @comments = Comment.all 
+    @comments = @post.comments
+
     @comment = Comment.new
   end
 
