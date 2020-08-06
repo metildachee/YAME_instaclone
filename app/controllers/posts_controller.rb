@@ -1,14 +1,21 @@
 class PostsController < ApplicationController
-  def index
+def index
     @posts = Post.all
-  end
+    puts @posts
+end
 
-  def create
-    @post = Post.new(post_params)
-    @post["user_id"] = current_user.id
+def create
+    @user = current_user
 
+    @post = @user.posts.build(post_params)
     if @post.save
-      redirect_to posts_path
+      flash[:success]="your post has been created!"
+      redirect_to users_path
+    # @post = Post.new(post_params)
+    # @post["user_id"] = current_user.id
+
+    # if @post.save
+      # redirect_to posts_path
     else
       render :new
     end
@@ -40,3 +47,4 @@ class PostsController < ApplicationController
     params.require(:post).permit(:caption, :main_image, :user_id)
   end
 end
+

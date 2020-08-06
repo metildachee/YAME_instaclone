@@ -1,56 +1,70 @@
 <h1>@<%= @user.username %></h1>
 
-<table class="table mt-4">
-    <% if @user.id != current_user.id %>
-        <% if @following_this_person && @followed_by_this_person %> 
-            <%= link_to "Unfollow", user_relationships_destroy_path(@user) %>
-            </br>
-            <small><%= @user.username %> follows you</small>
-        <% elsif @following_this_person %>
-            <%= link_to "Unfollow", user_relationships_destroy_path(@user) %>
-        <% elsif @followed_by_this_person %>
-            <%= link_to "Follow back", user_relationships_create_path(@user) %>
-            </br>
-            <small><%= @user.username %> follows you</small>
-        <% else %>
-            <%= link_to "Follow", user_relationships_create_path(@user) %>
-        <% end %>
+<% if @user.id != current_user.id %>
+    <% if @following_this_person && @followed_by_this_person %> 
+        <%= link_to "Unfollow", user_relationships_destroy_path(@user) %>
+        </br>
+        <small><%= @user.username %> follows you</small>
+    <% elsif @following_this_person %>
+        <%= link_to "Unfollow", user_relationships_destroy_path(@user) %>
+    <% elsif @followed_by_this_person %>
+        <%= link_to "Follow back", user_relationships_create_path(@user) %>
+        </br>
+        <small><%= @user.username %> follows you</small>
     <% else %>
-        <%= link_to "Edit", edit_user_registration_path(@user), class: "btn btn-warning" %>
+        <%= link_to "Follow", user_relationships_create_path(@user) %>
     <% end %>
+<% else %>
+    <%= link_to "Edit", edit_user_registration_path(@user), class: "btn btn-warning" %>
+<% end %>
 
+<h5>Followers (<%= @followers.length %>)</h5>
+<% @followers.each do |follower| %>
+    <%= link_to follower.username, user_path(follower.id) %>
+<% end %> 
+
+<h5>Following (<%= @following.length %>)</h5>
+<% @following.each do |following| %>
+    <%= link_to following.username, user_path(following.id) %>
+<% end %> 
+
+<table class="table mt-4">
     <tr>
-        <td>Name</td>
+        <td>First Name</td>
+        <td>Last Name</td>
         <td>Username</td>
-        <td>Bio</td>
         <td>Phone Number</td>
         <td>Address</td>
         <td>City</td>
         <td>Country</td>
         <td>Email</td>
-        <td>Followers</td>
-        <td>Following</td>
         <td>actions</td>
     </tr>
-
     <tr>
-        <td><%= @user.fname %> <%= @user.lname %></td>
-        <td><%= @user.fname %> <%= @user.lname %></td>
+        <td><%= @user.fname %></td>
+        <td><%= @user.lname %></td>
+        <td><%= @user.username %></td>
         <td><%= @user.phone %></td>
-        <td>
-            <h5>Followers (<%= @followers.length %>)</h5>
-            <% @followers.each do |follower| %>
-                <%= link_to follower.username, user_path(follower.id) %>
-            <% end %> 
-        </td>
-        <td>
-            <h5>Following (<%= @following.length %>)</h5>
-            <% @following.each do |following| %>
-                <%= link_to following.username, user_path(following.id) %>
-            <% end %> 
-        </td>
+        <td><%= @user.address %></td>
+        <td><%= @user.city %></td>
+        <td><%= @user.country %></td>
+        <td><%= @user.email %></td>
     </tr>
-
-    </tr>
-
+    <td>
+        <% if @user.user_image.attachment != nil %>
+            <%= image_tag @user.user_image.variant(resize_to_limit: [250, nil]) %>
+            <h1><%= @user.fname %></h1>
+        <% end %>
+    </td>
 </table>
+
+<% if @posts.length > 0 %>
+    <% @posts.each do |post| %>
+        <%= image_tag post.main_image %>
+        <h1><%= post.caption %></h1>
+        <p><%= link_to "Show more", user_post_path(post.user, post) %></p>
+    <% end %>
+<% else %>
+    <p>You have no posts, start adding now!</p>
+    <%= link_to  "Submit", new_user_post_path(current_user) %>
+<% end %>
