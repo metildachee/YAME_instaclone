@@ -3,7 +3,7 @@
 
   <% @posts.each do |post| %>
 
-    <%= image_tag post.main_image %>
+    <%= image_tag post.main_image , width: "500px", height: "500px" %>
     <h1><%= post.caption %></h1>
 
     <p><%= link_to post.user.username, user_path(post.user) %></p>

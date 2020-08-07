@@ -18,7 +18,7 @@
 <% @posts.each do |post| %>
     <div>
         
-        <%= image_tag post.main_image %>
+        <%= image_tag post.main_image, width: "500px", height: "500px"  %>
         <%= post.caption %>
         <%= link_to post.user.username, user_path(post.user) %>
         <%= link_to "Show more", user_post_path(post.user, post) %>

@@ -1,13 +1,12 @@
 class PostsController < ApplicationController
 
-def index # all around the world
-    @posts = Post.all
+def index # explore
+    @posts = Post.last(5)
     @relationships = Relationship.all
 end
 
 def create # this creates a new post
     @user = current_user
-
 
     @post = @user.posts.build(post_params)
     if @post.save
