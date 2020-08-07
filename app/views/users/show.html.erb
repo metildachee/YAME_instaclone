@@ -37,12 +37,9 @@
      
      
       <% if @posts != nil %>
-   
       <% @posts.each do |post| %>
         <% if post.main_image.attachment != nil %>
-
         <%= image_tag post.main_image.variant(resize_to_limit: [250, nil]) %>
-
       <% end %>
       
         <h1><%= post.caption %></h1>
