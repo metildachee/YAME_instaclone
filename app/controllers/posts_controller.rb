@@ -35,7 +35,7 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
 
-    Comment.where(post_id: post.id).each do |comment|
+    Comment.where(post_id: @post.id).each do |comment|
       Comment.destroy(comment.id).destroy 
     end
 

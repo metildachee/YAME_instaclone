@@ -26,8 +26,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    if @comment.destroy
-      redirect_to posts_path
+    if Comment.find(params[:id]).destroy
+      redirect_to post_path(params[:post_id])
     else
       render :index
     end
