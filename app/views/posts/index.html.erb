@@ -8,25 +8,33 @@
             <div class="row">
                 <% @posts.each do |post| %>
                     <div class="mx-auto mt-4">
-                        <%= image_tag post.main_image , class: "img-thumbnail img-responsive", width: "250px", height: "250px" %>
-                        <p><%= link_to post.user.username, user_path(post.user) %></p>
+                        <%= link_to user_post_path(post.user, post) do %>
+                            <%= image_tag post.main_image , class: "img-thumbnail img-responsive", width: "250px", height: "250px", alt: "Show more" %>
+                        <% end %>
+
+                        <p class="mt-2 mb-1">
+                        <%= link_to post.user.username, user_path(post.user) %>
+                        
+                        <% if @relationships.find_by(followed_id: post.user.id, follower_id: current_user.id) == nil && current_user.id != post.user.id %>
+                            <%= link_to "Follow", user_relationships_create_path(post.user) %>
+                        <% elsif current_user.id != post.user.id %>
+                            <%= link_to "Unfollow", user_relationships_destroy_path(post.user) %>
+                        <% end %>
+                        </p>
+
+                        <p>
+                        <% post.caption.to_s.split(' ').each do |word| %>
+                            <% if word.start_with?('#') %>
+                                <%= link_to word, finds_index_path(query: word) %>
+                            <%else %>
+                                <%= word %>
+                            <%end %>
+                        <% end %>
+                        </p>
+
                     </div>
                 <% end %>
             </div>
         </div>
-
-<% @posts.each do |post| %>
-    <div>
-        
-        <%= image_tag post.main_image, width: "500px", height: "500px"  %>
-        <%= post.caption %>
-        <%= link_to post.user.username, user_path(post.user) %>
-        <%= link_to "Show more", user_post_path(post.user, post) %>
-
-        <% if @relationships.find_by(followed_id: post.user.id, follower_id: current_user.id) == nil && current_user.id != post.user.id %>
-            <%= link_to "Follow", user_relationships_create_path(post.user) %>
-        <% elsif current_user.id != post.user.id %>
-            <%= link_to "Unfollow", user_relationships_destroy_path(post.user) %>
-        <% end %>
     </div>
-<% end %>
+</div>

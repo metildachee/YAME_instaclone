@@ -25,7 +25,15 @@ body {
 .navbar-brand {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    color: linear-gradient(to right, #feac5e, #c779d0, #4bc0c8);
+    font-size: 22px;
+    padding-left: 20px;
+    background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
+    background-size: 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
 }
 
 h1 {
